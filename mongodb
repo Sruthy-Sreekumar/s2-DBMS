@@ -1,0 +1,117 @@
+TYPE - mongo
+MongoDB shell version v3.6.8
+
+NOW YOU ARE IN MONGODB
+
+then
+> use abhishek - will create a database and will get switched into it.
+switched to db abhishek
+> db.dropDatabase() - will drop the current database.
+{ "ok" : 1 }
+> db; - will display the curreent database.
+abhishek
+
+> db.createCollection("Student"); - to create a Student collection( In MONGOdb collection is a Table)
+{ "ok" : 1 }
+
+> show collections; - to check the collection.
+Student
+
+> db.Student.insert({"Roll_no":1,"Name":"Anu"}); - to insert within a database.
+WriteResult({ "nInserted" : 1 })
+> db.Student.insert({"Roll_no":2,"Name":"Abhi"});
+WriteResult({ "nInserted" : 1 })
+> db.Student.insert({"Roll_no":3,"Name":"Shwetha"});
+WriteResult({ "nInserted" : 1 })
+> db.Student.insert({"Roll_no":4,"Name":"Nayan"});
+WriteResult({ "nInserted" : 1 })
+> db.Student.insert({"Roll_no":5,"Name":"Sreejith"});
+WriteResult({ "nInserted" : 1 })
+
+INSERTED WITHIN Student database.
+
+ db.Student.find() - to dispaly the inserted.
+{ "_id" : ObjectId("6627797c96400503b4c15967"), "Roll_no" : 1, "Name" : "Anu" }
+{ "_id" : ObjectId("662779b196400503b4c15969"), "Roll_no" : 2, "Name" : "Abhi" }
+{ "_id" : ObjectId("662779bb96400503b4c1596a"), "Roll_no" : 3, "Name" : "Shwetha" }
+{ "_id" : ObjectId("662779c896400503b4c1596b"), "Roll_no" : 4, "Name" : "Nayan" }
+{ "_id" : ObjectId("662779d396400503b4c1596c"), "Roll_no" : 5, "Name" : "Sreejith" }
+
+> db.Student.find().pretty() - Configures the cursor to display results in a format that is easy to read.
+{
+	"_id" : ObjectId("6627797c96400503b4c15967"),
+	"Roll_no" : 1,
+	"Name" : "Anu"
+}
+{
+	"_id" : ObjectId("662779b196400503b4c15969"),
+	"Roll_no" : 2,
+	"Name" : "Abhi"
+}
+{
+	"_id" : ObjectId("662779bb96400503b4c1596a"),
+	"Roll_no" : 3,
+	"Name" : "Shwetha"
+}
+{
+	"_id" : ObjectId("662779c896400503b4c1596b"),
+	"Roll_no" : 4,
+	"Name" : "Nayan"
+}
+{
+	"_id" : ObjectId("662779d396400503b4c1596c"),
+	"Roll_no" : 5,
+	"Name" : "Sreejith"
+}
+
+
+> db.Student.findOne() - will display the first inserted data according to a sequence.
+{
+	"_id" : ObjectId("6627797c96400503b4c15967"),
+	"Roll_no" : 1,
+	"Name" : "Anu"
+}
+
+> db.Student.find().limit(3); - will display first three from the database.
+{ "_id" : ObjectId("6627797c96400503b4c15967"), "Roll_no" : 1, "Name" : "Anu" }
+{ "_id" : ObjectId("6627799296400503b4c15968"), "Roll_no" : 2, "Name" : "Abhi" }
+{ "_id" : ObjectId("662779b196400503b4c15969"), "Roll_no" : 3, "Name" : "Shwetha" }
+
+> db.Student.find().limit(3).skip(2); - will display after the first two are deleted.
+{ "_id" : ObjectId("662779b196400503b4c15969"), "Roll_no" : 3, "Name" : "Shwetha" }
+{ "_id" : ObjectId("662779bb96400503b4c1596a"), "Roll_no" : 4, "Name" : "Nayan" }
+{ "_id" : ObjectId("662779c896400503b4c1596b"), "Roll_no" : 5, "Name" : "Sreejith" }
+
+
+> db.Student.update({"Roll_no":2},{$set:{"Name":"goutham"}}); - to change/update the name or any data.
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.Student.find();
+{ "_id" : ObjectId("6627797c96400503b4c15967"), "Roll_no" : 1, "Name" : "Anu" }
+{ "_id" : ObjectId("6627799296400503b4c15968"), "Roll_no" : 2, "Name" : "goutham" }
+{ "_id" : ObjectId("662779b196400503b4c15969"), "Roll_no" : 3, "Name" : "Shwetha" }
+{ "_id" : ObjectId("662779c896400503b4c1596b"), "Roll_no" : 4, "Name" : "Nayan" }
+{ "_id" : ObjectId("662779d396400503b4c1596c"), "Roll_no" : 5, "Name" : "Sreejith" }
+
+> db.Student.remove({"Roll_no":3}); - to remove a row.
+WriteResult({ "nRemoved" : 1 })
+> db.Student.find();
+{ "_id" : ObjectId("6627799296400503b4c15968"), "Roll_no" : 1, "Name" : "Anu" }
+{ "_id" : ObjectId("662779b196400503b4c15969"), "Roll_no" : 2, "Name" : "goutham" }
+{ "_id" : ObjectId("662779c896400503b4c1596b"), "Roll_no" : 4, "Name" : "Nayan" }
+{ "_id" : ObjectId("662779d396400503b4c1596c"), "Roll_no" : 5, "Name" : "Sreejith" }
+
+
+> db.Student.find().sort({"Name":1}); - will sort in ascending order.
+{ "_id" : ObjectId("6627799296400503b4c15968"), "Roll_no" : 1, "Name" : "Anu" }
+{ "_id" : ObjectId("662779c896400503b4c1596b"), "Roll_no" : 4, "Name" : "Nayan" }
+{ "_id" : ObjectId("662779d396400503b4c1596c"), "Roll_no" : 5, "Name" : "Sreejith" }
+{ "_id" : ObjectId("662779b196400503b4c15969"), "Roll_no" : 2, "Name" : "goutham" }
+{ "_id" : ObjectId("6627797c96400503b4c15967"), "Roll_no" : 1, "Name" : "nahas" }
+
+> db.Student.find().sort({"Name":-1}); -  will sort in descending order.
+{ "_id" : ObjectId("6627797c96400503b4c15967"), "Roll_no" : 1, "Name" : "nahas" }
+{ "_id" : ObjectId("662779b196400503b4c15969"), "Roll_no" : 2, "Name" : "goutham" }
+{ "_id" : ObjectId("662779d396400503b4c1596c"), "Roll_no" : 5, "Name" : "Sreejith" }
+{ "_id" : ObjectId("662779c896400503b4c1596b"), "Roll_no" : 4, "Name" : "Nayan" }
+{ "_id" : ObjectId("6627799296400503b4c15968"), "Roll_no" : 1, "Name" : "Anu" }
+> 
